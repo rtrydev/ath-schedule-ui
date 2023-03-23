@@ -17,6 +17,10 @@ $body-color: #d6d6d6;
   cursor: pointer;
 }
 
-html {
-  background: #212529;
+html body {
+  background-color: #212529;
+}
+
+:root {
+  color-scheme: dark;
 }
