@@ -1,1 +1,11 @@
-<p>date-picker works!</p>
+<div class="w-100 text-center dark-card p-3">
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+        <fa-icon (click)="decrementOffset()" class="action-icon p-2" [icon]="decrementIcon"></fa-icon>
+        <span>{{currentWeek}}</span>
+        <fa-icon (click)="incrementOffset()" class="action-icon p-2" [icon]="incrementIcon"></fa-icon>
+    </div>
+</div>
+
+
+
+
