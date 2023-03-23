@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {faMinusCircle, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronCircleLeft,
+  faChevronCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-date-picker',
@@ -10,8 +13,8 @@ export class DatePickerComponent implements OnInit{
   currentOffset = 0;
   currentWeek: string;
 
-  incrementIcon = faPlusCircle;
-  decrementIcon = faMinusCircle;
+  incrementIcon = faChevronCircleRight;
+  decrementIcon = faChevronCircleLeft;
 
   ngOnInit() {
     this.getWeekWithOffset();
