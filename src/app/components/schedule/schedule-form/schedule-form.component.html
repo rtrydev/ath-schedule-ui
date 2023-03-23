@@ -1,0 +1,56 @@
+<div class="col-12 bg-dark p-3">
+    <form [formGroup]="scheduleForm" (ngSubmit)="submit()" class="mb-3 d-flex flex-wrap justify-content-center align-items-center">
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="faculty" class="text-white pb-2">Faculty</label>
+            <select formControlName="faculty" (ngModelChange)="optionSelected('faculty')" class="form-select bg-dark text-white me-2" id="faculty">
+                <option *ngFor="let faculty of faculties" value="{{faculty.branch}}">{{faculty.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="type" class="text-white pb-2">Type</label>
+            <select formControlName="type" (ngModelChange)="optionSelected('type')" class="form-select bg-dark text-white me-2" id="type">
+                <option *ngFor="let type of types" value="{{type.branch}}">{{type.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="field" class="text-white pb-2">Field</label>
+            <select formControlName="field" (ngModelChange)="optionSelected('field')" class="form-select bg-dark text-white me-2" id="field">
+                <option *ngFor="let field of fields" value="{{field.branch}}">{{field.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="degree" class="text-white pb-2">Degree</label>
+            <select formControlName="degree" (ngModelChange)="optionSelected('degree')" class="form-select bg-dark text-white me-2" id="degree">
+                <option *ngFor="let degree of degrees" value="{{degree.branch}}">{{degree.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="term" class="text-white pb-2">Term</label>
+            <select formControlName="term" (ngModelChange)="optionSelected('term')" class="form-select bg-dark text-white me-2" id="term">
+                <option *ngFor="let term of terms" value="{{term.branch}}">{{term.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="group" class="text-white pb-2">Group</label>
+            <select formControlName="group" (ngModelChange)="optionSelected('group')" class="form-select bg-dark text-white me-2" id="group">
+                <option *ngFor="let group of groups" value="{{group.branch}}">{{group.title}}</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+            <label for="subgroup" class="text-white pb-2">Subgroup</label>
+            <select formControlName="subgroup" class="form-select bg-dark text-white me-2" id="subgroup">
+                <option *ngFor="let subgroup of subgroups" value="{{subgroup.id}}">{{subgroup.title}}</option>
+            </select>
+        </div>
+
+        <div class="mt-3 px-2">
+            <button type="submit" class="btn btn-outline-success" [disabled]="!canSubmit()">Show Schedule</button>
+        </div>
+    </form>
+</div>

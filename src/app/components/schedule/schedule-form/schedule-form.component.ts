@@ -1,0 +1,97 @@
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from "@angular/forms";
+import {FeedItem} from "../../../models/feed-item.model";
+import {ScheduleItem} from "../../../models/schedule-item.model";
+import {ScheduleExploreService} from "../../../services/schedule-explore.service";
+
+@Component({
+  selector: 'app-schedule-form',
+  templateUrl: './schedule-form.component.html',
+  styleUrls: ['./schedule-form.component.scss']
+})
+export class ScheduleFormComponent implements OnInit {
+  faculties: FeedItem[];
+  types: FeedItem[];
+  fields: FeedItem[];
+  degrees: FeedItem[];
+  terms: FeedItem[];
+  groups: FeedItem[];
+  subgroups: ScheduleItem[];
+
+  scheduleForm = this.formBuilder.group({
+    faculty: '',
+    type: '',
+    field: '',
+    degree: '',
+    term: '',
+    group: '',
+    subgroup: ''
+  });
+
+  constructor(private formBuilder: FormBuilder, private scheduleExploreService: ScheduleExploreService) {}
+
+  ngOnInit() {
+    this.scheduleExploreService.getBaseBranch()
+      .subscribe(branch => {
+        this.faculties = (branch as any).branchData as FeedItem[];
+      });
+  }
+
+  optionSelected(type: string) {
+    const nextBranchMap = {
+      faculty: 'types',
+      type: 'fields',
+      field: 'degrees',
+      degree: 'terms',
+      term: 'groups',
+      group: 'subgroups'
+    }
+
+    if (!(type in nextBranchMap)) {
+      return;
+    }
+
+    const selectedBranch = this.scheduleForm.get(type)?.value;
+    const typeData = this.getDataForType(type) as FeedItem[];
+    const selectedItem = typeData.find(type => type.branch === selectedBranch);
+
+    if (!selectedItem) {
+      return;
+    }
+
+    // @ts-ignore
+    const nextBranch = nextBranchMap[type] as string;
+
+    this.scheduleExploreService.exploreBranch(selectedItem)
+      .subscribe(branch => {
+        // @ts-ignore
+        this[nextBranch] = (branch as any).branchData as FeedItem[];
+      });
+  }
+
+  canSubmit() {
+    return !!this.scheduleForm.get('subgroup')?.value;
+  }
+
+  submit() {
+    console.log(this.scheduleForm.get('faculty')?.value);
+  }
+
+  private getDataForType(dataType: string) {
+    const typeMap = {
+      faculty: this.faculties,
+      type: this.types,
+      field: this.fields,
+      degree: this.degrees,
+      term: this.terms,
+      group: this.groups
+    }
+
+    if (dataType in typeMap) {
+      // @ts-ignore
+      return typeMap[dataType];
+    }
+
+    return [];
+  }
+}

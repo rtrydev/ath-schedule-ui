@@ -1,0 +1,15 @@
+<div class="d-flex flex-wrap align-items-center justify-content-center">
+    <div [ngClass]="{'col-sm-12 col-md-4 col-xl-4 col-xxl-2': !scheduleFormHidden, 'col-sm-12 col-md-1': scheduleFormHidden}">
+        <div class="d-flex justify-content-center bg-dark text-white text-center p-2">
+            <span class="text-center p-2">Select group</span>
+            <div class="d-flex justify-content-end p-2" [ngClass]="{'col-8': !scheduleFormHidden, 'col-2': scheduleFormHidden}">
+                <fa-icon (click)="toggleScheduleForm()" class="action-icon" [icon]="scheduleFormHidden ? openDrawerIcon : closeDrawerIcon"></fa-icon>
+            </div>
+        </div>
+        <app-schedule-form *ngIf="!scheduleFormHidden"></app-schedule-form>
+    </div>
+    <div [ngClass]="{'col-sm-12 col-md-8 col-xl-8 col-xxl-10': !scheduleFormHidden, 'col-sm-12 col-md-11': scheduleFormHidden}">
+        <app-calendar></app-calendar>
+    </div>
+</div>
+
