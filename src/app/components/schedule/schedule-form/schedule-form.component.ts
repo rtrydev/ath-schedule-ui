@@ -10,13 +10,13 @@ import {ScheduleExploreService} from "../../../services/schedule-explore.service
   styleUrls: ['./schedule-form.component.scss']
 })
 export class ScheduleFormComponent implements OnInit {
-  faculties: FeedItem[];
-  types: FeedItem[];
-  fields: FeedItem[];
-  degrees: FeedItem[];
-  terms: FeedItem[];
-  groups: FeedItem[];
-  subgroups: ScheduleItem[];
+  faculties: FeedItem[] = [];
+  types: FeedItem[] = [];
+  fields: FeedItem[] = [];
+  degrees: FeedItem[] = [];
+  terms: FeedItem[] = [];
+  groups: FeedItem[] = [];
+  subgroups: ScheduleItem[] = [];
 
   scheduleForm = this.formBuilder.group({
     faculty: '',
@@ -47,16 +47,42 @@ export class ScheduleFormComponent implements OnInit {
       group: 'subgroups'
     }
 
+    const nextTypeMap = {
+      faculty: 'type',
+      type: 'field',
+      field: 'degree',
+      degree: 'term',
+      term: 'group',
+      group: 'subgroup'
+    }
+
     if (!(type in nextBranchMap)) {
       return;
     }
 
     const selectedBranch = this.scheduleForm.get(type)?.value;
+
+    if (!selectedBranch) {
+      return;
+    }
+
     const typeData = this.getDataForType(type) as FeedItem[];
     const selectedItem = typeData.find(type => type.branch === selectedBranch);
 
     if (!selectedItem) {
       return;
+    }
+
+    let clearPastItem = type;
+    // @ts-ignore
+    while (nextTypeMap[clearPastItem]) {
+      // @ts-ignore
+      this[nextBranchMap[nextTypeMap[clearPastItem]]] = [];
+      // @ts-ignore
+      this.scheduleForm.get(nextTypeMap[clearPastItem])?.reset('');
+
+      // @ts-ignore
+      clearPastItem = nextTypeMap[clearPastItem];
     }
 
     // @ts-ignore
