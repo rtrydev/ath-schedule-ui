@@ -1,6 +1,6 @@
-<div class="col-12 bg-dark p-3">
+<div class="col-12 p-3">
     <form [formGroup]="scheduleForm" (ngSubmit)="submit()" class="mb-3 d-flex flex-wrap justify-content-center align-items-center">
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2">
+        <div class="form-group text-center col-12 pb-3 px-2">
             <label for="faculty" class="text-white pb-2">Faculty</label>
             <select formControlName="faculty" (ngModelChange)="optionSelected('faculty')" [ngClass]="{'disabled-select': faculties.length < 1}" class="form-select bg-dark text-white me-2" id="faculty" [value]="">
                 <option [hidden]="true" value="">Select faculty</option>
@@ -8,7 +8,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': types.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': types.length < 1}">
             <label for="type" class="text-white pb-2">Type</label>
             <select formControlName="type" (ngModelChange)="optionSelected('type')" class="form-select bg-dark text-white me-2" id="type" [value]="">
                 <option [hidden]="true" value="">Select type</option>
@@ -16,7 +16,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': fields.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': fields.length < 1}">
             <label for="field" class="text-white pb-2">Field</label>
             <select formControlName="field" (ngModelChange)="optionSelected('field')" class="form-select bg-dark text-white me-2" id="field" [value]="">
                 <option [hidden]="true" value="">Select field</option>
@@ -24,7 +24,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': degrees.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': degrees.length < 1}">
             <label for="degree" class="text-white pb-2">Degree</label>
             <select formControlName="degree" (ngModelChange)="optionSelected('degree')" class="form-select bg-dark text-white me-2" id="degree" [value]="">
                 <option [hidden]="true" value="">Select degree</option>
@@ -32,7 +32,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': terms.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': terms.length < 1}">
             <label for="term" class="text-white pb-2">Term</label>
             <select formControlName="term" (ngModelChange)="optionSelected('term')" class="form-select bg-dark text-white me-2" id="term" [value]="">
                 <option [hidden]="true" value="">Select term</option>
@@ -40,7 +40,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': groups.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': groups.length < 1}">
             <label for="group" class="text-white pb-2">Group</label>
             <select formControlName="group" (ngModelChange)="optionSelected('group')" class="form-select bg-dark text-white me-2" id="group" [value]="">
                 <option [hidden]="true" value="">Select group</option>
@@ -48,7 +48,7 @@
             </select>
         </div>
 
-        <div class="form-group bg-dark text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': subgroups.length < 1}">
+        <div class="form-group text-center col-12 pb-3 px-2" [ngClass]="{'disabled-select': subgroups.length < 1}">
             <label for="subgroup" class="text-white pb-2">Subgroup</label>
             <select formControlName="subgroup" class="form-select bg-dark text-white me-2" id="subgroup" [value]="">
                 <option [hidden]="true" value="">Select subgroup</option>

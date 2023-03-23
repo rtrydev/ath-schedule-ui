@@ -2,3 +2,13 @@
 
 $body-bg: #060606;
 $body-color: #d6d6d6;
+
+.dark-card {
+  @extend .card;
+  @extend .shadow;
+  background: #25292D;
+}
+
+.bg-dark-secondary {
+  background: #25292D;
+}

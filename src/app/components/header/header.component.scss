@@ -1,0 +1,6 @@
+@import "/src/styles";
+
+.header-card {
+  @extend .dark-card;
+  border-radius: 0;
+}

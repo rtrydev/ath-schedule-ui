@@ -13,6 +13,7 @@ import { ScheduleFormComponent } from './components/schedule/schedule-form/sched
 import { ReactiveFormsModule } from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CalendarDayComponent,
     ScheduleComponent,
     CalendarEntryComponent,
-    ScheduleFormComponent
+    ScheduleFormComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,

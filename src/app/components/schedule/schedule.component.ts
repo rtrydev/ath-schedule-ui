@@ -17,9 +17,13 @@ export class ScheduleComponent {
   }
 
   getToggleIcon() {
-    if (window.innerWidth < 768) {
+    if (this.isMobile()) {
       return this.scheduleFormHidden ? this.openDrawerIconMobile : this.closeDrawerIconMobile;
     }
     return this.scheduleFormHidden ? this.openDrawerIcon : this.closeDrawerIcon;
+  }
+
+  isMobile() {
+    return window.innerWidth < 768;
   }
 }

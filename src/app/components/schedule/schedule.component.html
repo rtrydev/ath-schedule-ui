@@ -1,15 +1,13 @@
-<div class="col-12 bg-dark">
-    <div class="d-flex flex-wrap align-items-center justify-content-center center-container">
-        <div class="col-12 col-sm-12" [ngClass]="{'col-md-5 col-xl-5 col-xxl-3': !scheduleFormHidden, 'col-md-1': scheduleFormHidden}">
-            <div class="d-flex justify-content-center bg-dark text-white text-center px-sm-3 px-2 py-2">
-                <span class="text-center">Select group</span>
-                <div class="d-flex justify-content-end col-8 col-sm-10" [ngClass]="{'col-md-8': !scheduleFormHidden, 'col-md-2': scheduleFormHidden}">
-                    <fa-icon (click)="toggleScheduleForm()" class="action-icon" [icon]="getToggleIcon()"></fa-icon>
-                </div>
+<div class="col-12 bg-dark p-2">
+    <div class="d-flex flex-wrap align-items-center justify-content-between center-container">
+        <div class="col-12 col-sm-12 dark-card p-3" [ngClass]="{'col-md-5 col-xl-5 col-xxl-3': !scheduleFormHidden, 'col-md-auto': scheduleFormHidden}">
+            <div class="d-flex justify-content-between text-white text-center px-sm-3 px-2 py-2">
+                <span class="text-center" *ngIf="!scheduleFormHidden || isMobile()">Select group</span>
+                <fa-icon (click)="toggleScheduleForm()" class="action-icon" [icon]="getToggleIcon()"></fa-icon>
             </div>
             <app-schedule-form *ngIf="!scheduleFormHidden"></app-schedule-form>
         </div>
-        <div [ngClass]="{'col-sm-12 col-md-7 col-xl-7 col-xxl-9': !scheduleFormHidden, 'col-sm-12 col-md-11': scheduleFormHidden}">
+        <div [ngClass]="{'col-sm-12 col-md-7 col-xl-7 col-xxl-9': !scheduleFormHidden, 'col-sm-12 col-md-10': scheduleFormHidden}">
             <app-calendar></app-calendar>
         </div>
     </div>
