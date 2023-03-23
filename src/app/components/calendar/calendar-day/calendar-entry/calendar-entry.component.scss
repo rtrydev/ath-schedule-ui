@@ -1,0 +1,19 @@
+@import "/src/styles";
+
+.lecture-block {
+  @extend .card;
+  @extend .justify-content-center;
+
+  font-size: 12px;
+  background: #5E716A;
+  width: 500px;
+}
+
+.practice-block {
+  @extend .card;
+  @extend .justify-content-center;
+
+  font-size: 12px;
+  background: #7393B3;
+  width: 100%;
+}

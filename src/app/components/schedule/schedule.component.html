@@ -1,5 +1,5 @@
 <div class="w-100 bg-dark p-2 text-white">
-    <div class="d-flex flex-wrap align-items-start justify-content-between center-container">
+    <div class="d-flex flex-wrap align-items-start justify-content-center center-container">
         <div class="col-12 col-sm-12 dark-card p-3" [ngClass]="{'col-md-4 col-xl-3 col-xxl-2': !scheduleFormHidden, 'col-md-auto': scheduleFormHidden}">
             <div class="d-flex justify-content-between text-white text-center px-sm-3 px-2 py-2">
                 <span class="text-center" *ngIf="!scheduleFormHidden || isMobile()">Select group</span>
@@ -7,13 +7,13 @@
             </div>
             <app-schedule-form *ngIf="!scheduleFormHidden"></app-schedule-form>
         </div>
-        <div class="flex-grow-1"
+        <div class="flex-grow-1" style="max-width: 1100px"
              [ngStyle]="{
                     'margin-left': !isMobile() ? '0.5rem' : '0',
                     'margin-top': !isMobile() ? '0' : '0.5rem'
                 }">
             <app-date-picker></app-date-picker>
-            <app-calendar></app-calendar>
+            <app-calendar [isMobile]="isMobile()"></app-calendar>
         </div>
     </div>
 </div>

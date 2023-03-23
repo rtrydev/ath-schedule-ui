@@ -1,1 +1,12 @@
-<span>Monday</span>
+<span>{{day}}</span>
+<div style="margin-top: 30px">
+    <app-calendar-entry
+        [name]="'Test'"
+        [type]="'wyk'"
+        [speakers]="['RK']"
+        [rooms]="['A123']"
+        [time]="'07:00 - 9:30'"
+        [minutesLength]="150"
+        [width]="isMobile ? 300 : 150"
+    ></app-calendar-entry>
+</div>

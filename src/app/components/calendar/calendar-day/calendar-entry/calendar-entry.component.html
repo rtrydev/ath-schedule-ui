@@ -1,1 +1,12 @@
-<p>calendar-entry works!</p>
+<div [ngClass]="{
+        'lecture-block': type === 'wyk',
+        'practice-block': type !== 'wyk'}"
+     [ngStyle]="{
+        'height': minutesLength * 0.8 + 'px',
+        'width': width + 'px'}"
+>
+    <span>{{name + ', ' + type}}</span>
+    <span>{{speakers.join(' ')}}</span>
+    <span>{{rooms.join(' ')}}</span>
+    <span>{{time}}</span>
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-calendar-day',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./calendar-day.component.scss']
 })
 export class CalendarDayComponent {
-
+  @Input() day: string;
+  @Input() isMobile: boolean;
 }

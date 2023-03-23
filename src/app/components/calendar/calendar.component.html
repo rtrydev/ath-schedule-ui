@@ -1,5 +1,5 @@
-<div class="w-100 text-center dark-card p-3 mt-2">
-    <div class="d-flex justify-content-start">
+<div class="w-100 text-center dark-card p-3 mt-2" *ngIf="!isMobile">
+    <div class=" d-flex justify-content-start">
         <div class="mt-4">
             <div *ngFor="let hour of hours">
                 <div class="mt-4">
@@ -8,12 +8,28 @@
             </div>
         </div>
         <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
-            <app-calendar-day></app-calendar-day>
-            <app-calendar-day></app-calendar-day>
-            <app-calendar-day></app-calendar-day>
-            <app-calendar-day></app-calendar-day>
-            <app-calendar-day></app-calendar-day>
+            <app-calendar-day [day]="'Monday'" [isMobile]="isMobile"></app-calendar-day>
+            <app-calendar-day [day]="'Tuesday'" [isMobile]="isMobile"></app-calendar-day>
+            <app-calendar-day [day]="'Wednesday'" [isMobile]="isMobile"></app-calendar-day>
+            <app-calendar-day [day]="'Thursday'" [isMobile]="isMobile"></app-calendar-day>
+            <app-calendar-day [day]="'Friday'" [isMobile]="isMobile"></app-calendar-day>
         </div>
     </div>
+</div>
 
+<div *ngIf="isMobile">
+    <div class="w-100 text-center dark-card p-3 mt-2" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+        <div class="d-flex justify-content-start">
+            <div class="mt-4">
+                <div *ngFor="let hour of hours">
+                    <div class="mt-4">
+                        <span>{{hour}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
+                <app-calendar-day [day]="day" [isMobile]="isMobile"></app-calendar-day>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent {
+  @Input() isMobile: boolean;
   hours: string[];
 
   constructor() {
