@@ -1,1 +1,19 @@
-<p style="width: 100%; height: 100%">calendar works!</p>
+<div class="w-100 text-center dark-card p-3 mt-2">
+    <div class="d-flex justify-content-start">
+        <div class="mt-4">
+            <div *ngFor="let hour of hours">
+                <div class="mt-4">
+                    <span>{{hour}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
+            <app-calendar-day></app-calendar-day>
+            <app-calendar-day></app-calendar-day>
+            <app-calendar-day></app-calendar-day>
+            <app-calendar-day></app-calendar-day>
+            <app-calendar-day></app-calendar-day>
+        </div>
+    </div>
+
+</div>
