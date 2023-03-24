@@ -112,6 +112,12 @@ export class ScheduleFormComponent implements OnInit {
     };
 
     this.formSubmitEvent.emit(scheduleItem);
+
+    localStorage.setItem('lastFetchedSchedule', JSON.stringify({
+      id: scheduleId,
+      type: scheduleType,
+      title: scheduleTitle
+    }));
   }
 
   private getDataForType(dataType: string) {

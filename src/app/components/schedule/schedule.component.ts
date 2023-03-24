@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {ScheduleDetails} from "../../models/schedule-details.model";
 import {ScheduleItem} from "../../models/schedule-item.model";
@@ -9,7 +9,7 @@ import {ScheduleFetchService} from "../../services/schedule-fetch.service";
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss']
 })
-export class ScheduleComponent implements OnInit{
+export class ScheduleComponent implements OnInit {
   closeDrawerIcon = faArrowLeft;
   openDrawerIcon = faArrowRight;
   closeDrawerIconMobile = faArrowUp;
@@ -28,6 +28,14 @@ export class ScheduleComponent implements OnInit{
     window.addEventListener('resize', () => {
       this.isMobile = this.checkIsMobile();
     });
+
+    const lastParamString = localStorage.getItem('lastFetchedSchedule');
+
+    if (lastParamString) {
+      this.currentScheduleParams = JSON.parse(lastParamString);
+
+      this.loadScheduleForCurrentParams();
+    }
   }
 
   scheduleBranchSubmitted(scheduleItem: ScheduleItem) {
