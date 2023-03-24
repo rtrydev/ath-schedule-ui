@@ -111,8 +111,6 @@ export class CalendarComponent {
             minutesLength: (endTime - startTime) / 60
           });
 
-          console.log(startTime)
-
           paddedSchedule.push(scheduleItem.scheduleBlockItems[i]);
 
           continue;

@@ -33,8 +33,6 @@ export class ScheduleComponent implements OnInit {
 
     if (lastParamString) {
       this.currentScheduleParams = JSON.parse(lastParamString);
-
-      this.loadScheduleForCurrentParams();
     }
   }
 
