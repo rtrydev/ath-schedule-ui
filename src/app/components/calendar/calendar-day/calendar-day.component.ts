@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {ScheduleBlockItem} from "../../../models/schedule-block-item.model";
 
 @Component({
   selector: 'app-calendar-day',
@@ -8,4 +9,5 @@ import {Component, Input} from '@angular/core';
 export class CalendarDayComponent {
   @Input() day: string;
   @Input() isMobile: boolean;
+  @Input() scheduleBlockItems: ScheduleBlockItem[];
 }

@@ -49,11 +49,12 @@ export class ScheduleComponent implements OnInit{
       id: this.currentScheduleParams.id,
       type: this.currentScheduleParams.type,
       fromDate: this.currentWeekTimestamp,
-      toDate: this.currentWeekTimestamp + 60 * 60 * 24 * 7
+      toDate: this.currentWeekTimestamp + 60 * 60 * 24 * 6
     };
 
-    this.scheduleFetchService.getSchedule(params).subscribe(schedule => {
-      this.schedule = schedule as ScheduleDetails[];
+    this.scheduleFetchService.getSchedule(params).subscribe(scheduleResponse => {
+      // @ts-ignore
+      this.schedule = scheduleResponse.schedule as ScheduleDetails[];
     });
   }
 

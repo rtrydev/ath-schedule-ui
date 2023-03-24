@@ -45,8 +45,9 @@ export class DatePickerComponent implements OnInit{
 
     const first = currentDate.getDate() - currentDate.getDay() + 1 + 7 * this.currentOffset;
     const firstDay = new Date(currentDate.setDate(first));
+    const firstDayTimeReset = new Date(firstDay.setHours(3));
 
-    return firstDay.getTime() / 1000;
+    return firstDayTimeReset.getTime() / 1000;
   }
 
   private setWeekString() {
@@ -55,8 +56,8 @@ export class DatePickerComponent implements OnInit{
     const first = currentDate.getDate() - currentDate.getDay() + 1 + 7 * this.currentOffset;
     const last = first + 6;
 
-    const firstDay = new Date(currentDate.setDate(first));
-    const lastDay = new Date(currentDate.setDate(last));
+    const firstDay = new Date(new Date().setDate(first));
+    const lastDay = new Date(new Date().setDate(last));
 
     const currentDates = [firstDay, lastDay]
       .map(date =>

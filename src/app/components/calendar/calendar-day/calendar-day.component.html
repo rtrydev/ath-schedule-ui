@@ -1,12 +1,18 @@
 <span>{{day}}</span>
 <div style="margin-top: 30px">
-    <app-calendar-entry
-        [name]="'Test'"
-        [type]="'wyk'"
-        [speakers]="['RK']"
-        [rooms]="['A123']"
-        [time]="'07:00 - 9:30'"
-        [minutesLength]="150"
-        [width]="isMobile ? 250 : 150"
-    ></app-calendar-entry>
+    <div *ngFor="let blockItem of scheduleBlockItems">
+        <app-calendar-entry
+            *ngIf="blockItem.type !== 'interval'"
+            [name]="blockItem.name || ''"
+            [type]="blockItem.type"
+            [speakers]="blockItem.speakers"
+            [rooms]="blockItem.rooms"
+            [time]="''"
+            [minutesLength]="blockItem.minutesLength"
+            [width]="isMobile ? 250 : 150"
+        ></app-calendar-entry>
+        <div *ngIf="blockItem.type === 'interval'">
+            <div [ngStyle]="{'height': blockItem.minutesLength * 0.8 + 'px'}"></div>
+        </div>
+    </div>
 </div>
