@@ -137,8 +137,6 @@ export class CalendarComponent {
       }
     });
 
-    console.log(scheduleWithBreaks);
-
     return scheduleWithBreaks;
   }
 }

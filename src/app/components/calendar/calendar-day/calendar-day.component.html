@@ -7,7 +7,7 @@
             [type]="blockItem.type"
             [speakers]="blockItem.speakers"
             [rooms]="blockItem.rooms"
-            [time]="''"
+            [time]="getTimeOnly(blockItem.startTime) + ' - ' + getTimeOnly(blockItem.endTime)"
             [minutesLength]="blockItem.minutesLength"
             [width]="isMobile ? 250 : 150"
         ></app-calendar-entry>
