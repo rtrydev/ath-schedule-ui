@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   faChevronCircleLeft,
   faChevronCircleRight,
@@ -10,6 +10,7 @@ import {
   styleUrls: ['./date-picker.component.scss']
 })
 export class DatePickerComponent implements OnInit{
+  @Output() currentWeekChanged = new EventEmitter<number>();
   currentOffset = 0;
   currentWeek: string;
 
@@ -17,20 +18,38 @@ export class DatePickerComponent implements OnInit{
   decrementIcon = faChevronCircleLeft;
 
   ngOnInit() {
-    this.getWeekWithOffset();
+    this.setWeekString();
+
+    const currentWeekTimestamp = this.getWeekStartTimestamp();
+    this.currentWeekChanged.emit(currentWeekTimestamp);
   }
 
   incrementOffset() {
     this.currentOffset++;
-    this.getWeekWithOffset();
+    this.setWeekString();
+
+    const currentWeekTimestamp = this.getWeekStartTimestamp();
+    this.currentWeekChanged.emit(currentWeekTimestamp);
   }
 
   decrementOffset() {
     this.currentOffset--;
-    this.getWeekWithOffset();
+    this.setWeekString();
+
+    const currentWeekTimestamp = this.getWeekStartTimestamp();
+    this.currentWeekChanged.emit(currentWeekTimestamp);
   }
 
-  private getWeekWithOffset() {
+  private getWeekStartTimestamp() {
+    const currentDate = new Date();
+
+    const first = currentDate.getDate() - currentDate.getDay() + 1 + 7 * this.currentOffset;
+    const firstDay = new Date(currentDate.setDate(first));
+
+    return firstDay.getTime() / 1000;
+  }
+
+  private setWeekString() {
     const currentDate = new Date();
 
     const first = currentDate.getDate() - currentDate.getDay() + 1 + 7 * this.currentOffset;

@@ -5,14 +5,14 @@
                 <span class="text-center" *ngIf="!scheduleFormHidden || isMobile">Select group</span>
                 <fa-icon (click)="toggleScheduleForm()" class="action-icon" [icon]="getToggleIcon(isMobile)"></fa-icon>
             </div>
-            <app-schedule-form *ngIf="!scheduleFormHidden"></app-schedule-form>
+            <app-schedule-form *ngIf="!scheduleFormHidden" (formSubmitEvent)="scheduleBranchSubmitted($event)"></app-schedule-form>
         </div>
         <div class="flex-grow-1" style="max-width: 1100px"
              [ngStyle]="{
                     'margin-left': !isMobile ? '0.5rem' : '0',
                     'margin-top': !isMobile ? '0' : '0.5rem'
                 }">
-            <app-date-picker></app-date-picker>
+            <app-date-picker (currentWeekChanged)="dateChanged($event)"></app-date-picker>
             <app-calendar [isMobile]="isMobile"></app-calendar>
         </div>
     </div>

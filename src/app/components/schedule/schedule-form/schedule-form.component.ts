@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {FeedItem} from "../../../models/feed-item.model";
 import {ScheduleItem} from "../../../models/schedule-item.model";
@@ -10,6 +10,7 @@ import {ScheduleExploreService} from "../../../services/schedule-explore.service
   styleUrls: ['./schedule-form.component.scss']
 })
 export class ScheduleFormComponent implements OnInit {
+  @Output() formSubmitEvent = new EventEmitter<ScheduleItem>();
   faculties: FeedItem[] = [];
   types: FeedItem[] = [];
   fields: FeedItem[] = [];
@@ -100,7 +101,17 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.scheduleForm.get('faculty')?.value);
+    const scheduleId = this.scheduleForm.get('subgroup')?.value;
+    const scheduleType = this.subgroups.find(subgroup => subgroup.id === scheduleId)?.type;
+    const scheduleTitle = this.subgroups.find(subgroup => subgroup.id === scheduleId)?.title;
+
+    const scheduleItem = {
+      id: scheduleId || '',
+      type: scheduleType || '',
+      title: scheduleTitle || ''
+    };
+
+    this.formSubmitEvent.emit(scheduleItem);
   }
 
   private getDataForType(dataType: string) {
