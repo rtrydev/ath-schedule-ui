@@ -33,6 +33,9 @@ export class ScheduleComponent implements OnInit {
 
     if (lastParamString) {
       this.currentScheduleParams = JSON.parse(lastParamString);
+      if (this.isMobile) {
+        this.scheduleFormHidden = true;
+      }
     }
   }
 
