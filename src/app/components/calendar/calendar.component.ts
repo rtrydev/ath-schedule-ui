@@ -96,7 +96,7 @@ export class CalendarComponent {
 
       for (let i = 0; i < scheduleItem.scheduleBlockItems.length; i++) {
         const itemDate = new Date(scheduleItem.scheduleBlockItems[0].startTime * 1000);
-        const dayStart = new Date(itemDate.setHours(8));
+        const dayStart = new Date(itemDate.setHours(8, 0 ,0));
 
         if (i === 0) {
           const startTime = dayStart.getTime() / 1000;
@@ -110,6 +110,8 @@ export class CalendarComponent {
             endTime,
             minutesLength: (endTime - startTime) / 60
           });
+
+          console.log(startTime)
 
           paddedSchedule.push(scheduleItem.scheduleBlockItems[i]);
 
