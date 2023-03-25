@@ -2,7 +2,7 @@
     <div class="d-flex flex-wrap align-items-start justify-content-center center-container">
         <div class="col-12 col-sm-12 dark-card p-3" [ngClass]="{'col-md-4 col-xl-3 col-xxl-2': !scheduleFormHidden, 'col-md-auto': scheduleFormHidden}">
             <div class="d-flex justify-content-between text-white text-center px-sm-3 px-2 py-2">
-                <span class="text-center" *ngIf="!scheduleFormHidden || isMobile">Select group</span>
+                <span class="text-center" *ngIf="!scheduleFormHidden || isMobile">Branch explorer</span>
                 <fa-icon (click)="toggleScheduleForm()" class="action-icon" [icon]="getToggleIcon(isMobile)"></fa-icon>
             </div>
             <app-schedule-form *ngIf="!scheduleFormHidden" (formSubmitEvent)="scheduleBranchSubmitted($event)"></app-schedule-form>

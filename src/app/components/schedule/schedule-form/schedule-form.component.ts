@@ -11,130 +11,55 @@ import {ScheduleExploreService} from "../../../services/schedule-explore.service
 })
 export class ScheduleFormComponent implements OnInit {
   @Output() formSubmitEvent = new EventEmitter<ScheduleItem>();
-  faculties: FeedItem[] = [];
-  types: FeedItem[] = [];
-  fields: FeedItem[] = [];
-  degrees: FeedItem[] = [];
-  terms: FeedItem[] = [];
-  groups: FeedItem[] = [];
-  subgroups: ScheduleItem[] = [];
-
-  scheduleForm = this.formBuilder.group({
-    faculty: '',
-    type: '',
-    field: '',
-    degree: '',
-    term: '',
-    group: '',
-    subgroup: ''
-  });
+  branchData: any[] = [];
+  selectedSchedule?: ScheduleItem;
 
   constructor(private formBuilder: FormBuilder, private scheduleExploreService: ScheduleExploreService) {}
 
   ngOnInit() {
     this.scheduleExploreService.getBaseBranch()
       .subscribe(branch => {
-        this.faculties = (branch as any).branchData as FeedItem[];
+        this.branchData.push((branch as any).branchData);
       });
   }
 
-  optionSelected(type: string) {
-    const nextBranchMap = {
-      faculty: 'types',
-      type: 'fields',
-      field: 'degrees',
-      degree: 'terms',
-      term: 'groups',
-      group: 'subgroups'
+  optionSelected(type: string, event?: any) {
+    const explorationBranchIndex = parseInt(type);
+    const selectedOptionIndex = event.target.selectedIndex - 1;
+
+    const selectedItem = this.branchData[explorationBranchIndex][selectedOptionIndex];
+
+    if (explorationBranchIndex + 1 !== this.branchData.length) {
+      this.selectedSchedule = undefined;
+      const initialLength = this.branchData.length;
+
+      for (let i = explorationBranchIndex + 1; i < initialLength; i++) {
+        this.branchData.pop();
+      }
     }
 
-    const nextTypeMap = {
-      faculty: 'type',
-      type: 'field',
-      field: 'degree',
-      degree: 'term',
-      term: 'group',
-      group: 'subgroup'
-    }
-
-    if (!(type in nextBranchMap)) {
+    if (!!selectedItem.id) {
+      this.selectedSchedule = selectedItem;
       return;
     }
-
-    const selectedBranch = this.scheduleForm.get(type)?.value;
-
-    if (!selectedBranch) {
-      return;
-    }
-
-    const typeData = this.getDataForType(type) as FeedItem[];
-    const selectedItem = typeData.find(type => type.branch === selectedBranch);
-
-    if (!selectedItem) {
-      return;
-    }
-
-    let clearPastItem = type;
-    // @ts-ignore
-    while (nextTypeMap[clearPastItem]) {
-      // @ts-ignore
-      this[nextBranchMap[nextTypeMap[clearPastItem]]] = [];
-      // @ts-ignore
-      this.scheduleForm.get(nextTypeMap[clearPastItem])?.reset('');
-
-      // @ts-ignore
-      clearPastItem = nextTypeMap[clearPastItem];
-    }
-
-    // @ts-ignore
-    const nextBranch = nextBranchMap[type] as string;
 
     this.scheduleExploreService.exploreBranch(selectedItem)
       .subscribe(branch => {
-        // @ts-ignore
-        this[nextBranch] = (branch as any).branchData as FeedItem[];
+        this.branchData.push((branch as any).branchData);
       });
   }
 
   canSubmit() {
-    return !!this.scheduleForm.get('subgroup')?.value;
+    return !!this.selectedSchedule;
   }
 
   submit() {
-    const scheduleId = this.scheduleForm.get('subgroup')?.value;
-    const scheduleType = this.subgroups.find(subgroup => subgroup.id === scheduleId)?.type;
-    const scheduleTitle = this.subgroups.find(subgroup => subgroup.id === scheduleId)?.title;
-
-    const scheduleItem = {
-      id: scheduleId || '',
-      type: scheduleType || '',
-      title: scheduleTitle || ''
-    };
-
-    this.formSubmitEvent.emit(scheduleItem);
-
-    localStorage.setItem('lastFetchedSchedule', JSON.stringify({
-      id: scheduleId,
-      type: scheduleType,
-      title: scheduleTitle
-    }));
-  }
-
-  private getDataForType(dataType: string) {
-    const typeMap = {
-      faculty: this.faculties,
-      type: this.types,
-      field: this.fields,
-      degree: this.degrees,
-      term: this.terms,
-      group: this.groups
+    if (!this.selectedSchedule) {
+      return;
     }
 
-    if (dataType in typeMap) {
-      // @ts-ignore
-      return typeMap[dataType];
-    }
+    this.formSubmitEvent.emit(this.selectedSchedule);
 
-    return [];
+    localStorage.setItem('lastFetchedSchedule', JSON.stringify(this.selectedSchedule));
   }
 }
