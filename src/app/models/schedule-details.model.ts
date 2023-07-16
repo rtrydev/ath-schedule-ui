@@ -1,7 +1,7 @@
 export class ScheduleDetails {
   id: string;
-  startTime: number;
-  endTime: number;
+  start_time: number;
+  end_time: number;
   course: string;
   type: string;
   speakers: string[];

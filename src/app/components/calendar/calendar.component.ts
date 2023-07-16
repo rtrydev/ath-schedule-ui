@@ -36,11 +36,11 @@ export class CalendarComponent {
   }
 
   private parseSchedule(schedule: ScheduleDetails[]) {
-    if (schedule.length < 1 || !schedule[0].startTime) {
+    if (schedule.length < 1 || !schedule[0].start_time) {
       return [];
     }
 
-    const scheduleDate = new Date(schedule[0].startTime * 1000);
+    const scheduleDate = new Date(schedule[0].start_time * 1000);
 
     const first = scheduleDate.getDate() - scheduleDate.getDay() + 1;
     const firstDay = new Date(scheduleDate.setDate(first));
@@ -68,7 +68,7 @@ export class CalendarComponent {
     }
 
     const daysWithSchedule = days.filter(day =>
-      !!schedule.find(scheduleItem => scheduleItem.startTime > day.start && scheduleItem.endTime < day.end)
+      !!schedule.find(scheduleItem => scheduleItem.start_time > day.start && scheduleItem.end_time < day.end)
     );
 
     const parsedSchedule = daysWithSchedule
@@ -76,16 +76,16 @@ export class CalendarComponent {
         return {
           dayName: day.name,
           scheduleBlockItems: schedule
-            .filter(scheduleItem => scheduleItem.startTime < day.end && scheduleItem.endTime > day.start)
+            .filter(scheduleItem => scheduleItem.start_time < day.end && scheduleItem.end_time > day.start)
             .map(scheduleItem => {
               return {
                 name: scheduleItem.course,
                 type: scheduleItem.type,
                 speakers: scheduleItem.speakers,
                 rooms: scheduleItem.rooms,
-                startTime: scheduleItem.startTime,
-                endTime: scheduleItem.endTime,
-                minutesLength: (scheduleItem.endTime - scheduleItem.startTime) / 60
+                startTime: scheduleItem.start_time,
+                endTime: scheduleItem.end_time,
+                minutesLength: (scheduleItem.end_time - scheduleItem.start_time) / 60
               };
             })
         }

@@ -18,7 +18,7 @@ export class ScheduleComponent implements OnInit {
   isMobile = true;
   schedule: ScheduleDetails[] = [];
   currentScheduleParams: ScheduleItem;
-  currentWeekTimestamp: number;
+  currentWeek: number;
 
   constructor(private scheduleFetchService: ScheduleFetchService) {}
 
@@ -46,7 +46,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   dateChanged(weekStartTimestamp: number) {
-    this.currentWeekTimestamp = weekStartTimestamp;
+    this.currentWeek = weekStartTimestamp;
 
     if (this.currentScheduleParams) {
       this.loadScheduleForCurrentParams();
@@ -57,13 +57,12 @@ export class ScheduleComponent implements OnInit {
     const params = {
       id: this.currentScheduleParams.id,
       type: this.currentScheduleParams.type,
-      fromDate: this.currentWeekTimestamp,
-      toDate: this.currentWeekTimestamp + 60 * 60 * 24 * 7
+      week: this.currentWeek
     };
 
     this.scheduleFetchService.getSchedule(params).subscribe(scheduleResponse => {
       // @ts-ignore
-      this.schedule = scheduleResponse.schedule as ScheduleDetails[];
+      this.schedule = scheduleResponse.data as ScheduleDetails[];
     });
   }
 

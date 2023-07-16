@@ -19,7 +19,7 @@ export class ScheduleFormComponent implements OnInit {
   ngOnInit() {
     this.scheduleExploreService.getBaseBranch()
       .subscribe(branch => {
-        this.branchData.push((branch as any).branchData);
+        this.branchData.push(branch.data);
       });
   }
 
@@ -45,7 +45,7 @@ export class ScheduleFormComponent implements OnInit {
 
     this.scheduleExploreService.exploreBranch(selectedItem)
       .subscribe(branch => {
-        this.branchData.push((branch as any).branchData);
+        this.branchData.push(branch.data);
       });
   }
 
