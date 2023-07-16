@@ -56,7 +56,7 @@ export class ScheduleExploreService {
         catchError(err => {
           return of({
             data: []
-          })
+          });
         })
       );
   }

@@ -32,8 +32,8 @@ export class ScheduleFetchService {
         catchError(err => {
           return of({
             data: []
-          })
+          });
         })
-      )
+      );
   }
 }
