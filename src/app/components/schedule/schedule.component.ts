@@ -16,7 +16,7 @@ export class ScheduleComponent implements OnInit {
   openDrawerIconMobile = faArrowDown;
   scheduleFormHidden = false;
   isMobile = true;
-  loadingSchedule = true;
+  loadingSchedule = false;
   schedule: ScheduleDetails[] = [];
   currentScheduleParams: ScheduleItem;
   currentWeek: number;

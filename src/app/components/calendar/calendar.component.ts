@@ -9,6 +9,7 @@ import {ScheduleBlockItem} from "../../models/schedule-block-item.model";
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent {
+  @Input() hasGroupSet = false;
   @Input() isMobile: boolean;
   @Input() set schedule(schedule: ScheduleDetails[]) {
     this.scheduleDays = this.parseSchedule(schedule);
