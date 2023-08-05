@@ -13,7 +13,10 @@
                     'margin-top': !isMobile ? '0' : '0.5rem'
                 }">
             <app-date-picker (currentWeekChanged)="dateChanged($event)"></app-date-picker>
-            <app-calendar [isMobile]="isMobile" [schedule]="schedule"></app-calendar>
+            <app-calendar *ngIf="!loadingSchedule" [isMobile]="isMobile" [schedule]="schedule"></app-calendar>
+            <div class="d-flex justify-content-center">
+                <div *ngIf="loadingSchedule" class="spinner-border text-white m-5"></div>
+            </div>
         </div>
     </div>
 </div>

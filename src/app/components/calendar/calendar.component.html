@@ -1,23 +1,12 @@
-<div class="w-100 text-center dark-card p-3 mt-2" *ngIf="!isMobile">
-    <div class=" d-flex justify-content-start">
-        <div class="mt-4">
-            <div *ngFor="let hour of hours">
-                <div class="mt-4">
-                    <span>{{hour}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
-            <div *ngFor="let scheduleDay of scheduleDays">
-                <app-calendar-day [day]="scheduleDay.dayName" [scheduleBlockItems]="scheduleDay.scheduleBlockItems" [isMobile]="isMobile"></app-calendar-day>
-            </div>
-        </div>
-    </div>
+<div *ngIf="scheduleDays.length === 0" class="d-flex justify-content-center p-5">
+    <p class="text-white text-center">
+        No schedule found for given week.
+    </p>
 </div>
 
-<div *ngIf="isMobile">
-    <div class="w-100 text-center dark-card p-3 mt-2" *ngFor="let scheduleDay of scheduleDays">
-        <div class="d-flex justify-content-start">
+<div *ngIf="scheduleDays.length > 0">
+    <div class="w-100 text-center dark-card p-3 mt-2" *ngIf="!isMobile">
+        <div class=" d-flex justify-content-start">
             <div class="mt-4">
                 <div *ngFor="let hour of hours">
                     <div class="mt-4">
@@ -26,7 +15,26 @@
                 </div>
             </div>
             <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
-                <app-calendar-day [day]="scheduleDay.dayName" [scheduleBlockItems]="scheduleDay.scheduleBlockItems" [isMobile]="isMobile"></app-calendar-day>
+                <div *ngFor="let scheduleDay of scheduleDays">
+                    <app-calendar-day [day]="scheduleDay.dayName" [scheduleBlockItems]="scheduleDay.scheduleBlockItems" [isMobile]="isMobile"></app-calendar-day>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="isMobile">
+        <div class="w-100 text-center dark-card p-3 mt-2" *ngFor="let scheduleDay of scheduleDays">
+            <div class="d-flex justify-content-start">
+                <div class="mt-4">
+                    <div *ngFor="let hour of hours">
+                        <div class="mt-4">
+                            <span>{{hour}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-evenly align-items-start flex-grow-1">
+                    <app-calendar-day [day]="scheduleDay.dayName" [scheduleBlockItems]="scheduleDay.scheduleBlockItems" [isMobile]="isMobile"></app-calendar-day>
+                </div>
             </div>
         </div>
     </div>

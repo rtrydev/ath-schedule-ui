@@ -16,6 +16,7 @@ export class ScheduleComponent implements OnInit {
   openDrawerIconMobile = faArrowDown;
   scheduleFormHidden = false;
   isMobile = true;
+  loadingSchedule = true;
   schedule: ScheduleDetails[] = [];
   currentScheduleParams: ScheduleItem;
   currentWeek: number;
@@ -54,6 +55,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   loadScheduleForCurrentParams() {
+    this.loadingSchedule = true;
     const params = {
       id: this.currentScheduleParams.id,
       type: this.currentScheduleParams.type,
@@ -63,6 +65,7 @@ export class ScheduleComponent implements OnInit {
     this.scheduleFetchService.getSchedule(params).subscribe(scheduleResponse => {
       // @ts-ignore
       this.schedule = scheduleResponse.data as ScheduleDetails[];
+      this.loadingSchedule = false;
     });
   }
 
