@@ -3,6 +3,7 @@ import {faArrowDown, faArrowLeft, faArrowRight, faArrowUp} from "@fortawesome/fr
 import {ScheduleDetails} from "../../models/schedule-details.model";
 import {ScheduleItem} from "../../models/schedule-item.model";
 import {ScheduleFetchService} from "../../services/schedule-fetch.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -21,7 +22,11 @@ export class ScheduleComponent implements OnInit {
   currentScheduleParams: ScheduleItem;
   currentWeek: number;
 
-  constructor(private scheduleFetchService: ScheduleFetchService) {}
+  constructor(
+    private scheduleFetchService: ScheduleFetchService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isMobile = this.checkIsMobile();
@@ -30,14 +35,56 @@ export class ScheduleComponent implements OnInit {
       this.isMobile = this.checkIsMobile();
     });
 
-    const lastParamString = localStorage.getItem('lastFetchedSchedule');
+    this.route.queryParamMap.subscribe(
+      paramMap => {
+        const id = paramMap.get('id');
+        const type = paramMap.get('type');
+        const week = paramMap.get('week');
 
-    if (lastParamString) {
-      this.currentScheduleParams = JSON.parse(lastParamString);
-      if (this.isMobile) {
-        this.scheduleFormHidden = true;
+        const hasAnyParam = id || type || week;
+        const hasAllParams = id && type && week;
+
+        if (!hasAnyParam) {
+          const lastParamString = localStorage.getItem('lastFetchedSchedule');
+
+          if (lastParamString) {
+            this.currentScheduleParams = JSON.parse(lastParamString);
+            if (this.isMobile) {
+              this.scheduleFormHidden = true;
+            }
+          }
+
+          return;
+        }
+
+        if (!hasAllParams) {
+          this.router.navigate(
+            [],
+            {
+              queryParams: {
+                'id': null,
+                'type': null,
+                'week': null
+              },
+              queryParamsHandling: 'merge'
+            }
+          );
+
+          return;
+        }
+
+        this.currentScheduleParams = {
+          id: id || '',
+          type: type || '',
+          title: ''
+        };
+        this.currentWeek = parseInt(week);
+
+        if (this.isMobile) {
+          this.scheduleFormHidden = true;
+        }
       }
-    }
+    );
   }
 
   scheduleBranchSubmitted(scheduleItem: ScheduleItem) {
@@ -61,6 +108,15 @@ export class ScheduleComponent implements OnInit {
       type: this.currentScheduleParams.type,
       week: this.currentWeek
     };
+
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: params,
+        queryParamsHandling: 'merge',
+      }
+    );
 
     this.scheduleFetchService.getSchedule(params).subscribe(scheduleResponse => {
       // @ts-ignore

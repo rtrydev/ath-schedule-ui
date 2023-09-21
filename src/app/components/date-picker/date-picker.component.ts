@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   faChevronCircleLeft,
   faChevronCircleRight,
@@ -20,13 +21,28 @@ export class DatePickerComponent implements OnInit{
   incrementIcon = faChevronCircleRight;
   decrementIcon = faChevronCircleLeft;
 
+  constructor(private route: ActivatedRoute) {}
+
   ngOnInit() {
-    const currentWeek = this.getCurrentWeek();
+    this.route.queryParamMap.subscribe(
+      paramMap => {
+        const id = paramMap.get('id');
+        const type = paramMap.get('type');
+        const requestedWeek = paramMap.get('week');
 
-    this.currentMagicWeek = this.getMagicWeek(currentWeek);
-    this.setWeekString();
+        const hasAllParams = id && type && requestedWeek;
 
-    this.currentWeekChanged.emit(this.currentMagicWeek);
+        const currentWeek = this.getCurrentWeek();
+        this.currentMagicWeek = this.getMagicWeek(currentWeek);
+
+        if (hasAllParams) {
+          this.currentOffset = parseInt(requestedWeek) - this.currentMagicWeek;
+        }
+
+        this.setWeekString();
+        this.currentWeekChanged.emit(this.currentMagicWeek + this.currentOffset);
+      }
+    );
   }
 
   incrementOffset() {

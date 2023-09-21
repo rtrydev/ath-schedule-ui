@@ -4,7 +4,9 @@ import { ScheduleComponent } from "./components/schedule/schedule.component";
 
 const routes: Routes = [
   {
-    path: '', component: ScheduleComponent, pathMatch: "full"
+    path: '', redirectTo: 'browse', pathMatch: 'full'
+  }, {
+    path: 'browse', component: ScheduleComponent, pathMatch: 'full'
   }
 ];
 
